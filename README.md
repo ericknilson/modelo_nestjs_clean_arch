@@ -420,16 +420,16 @@ describe('/users (e2e)', () => {
 
 1. **Criar a Entidade de Domínio**
 ```typescript
-// domain/entities/produto.entity.ts
-export class ProdutoEntity extends Entity<ProdutoProps> {
+// domain/entities/product.entity.ts
+export class ProductEntity extends Entity<ProductProps> {
   // Implementar regras de negócio
 }
 ```
 
 2. **Definir o Contrato do Repositório**
 ```typescript
-// domain/repositories/produto.repository.ts
-export namespace ProdutoRepository {
+// domain/repositories/product.repository.ts
+export namespace ProductRepository {
   export interface Repository {
     // Definir métodos necessários
   }
@@ -438,8 +438,8 @@ export namespace ProdutoRepository {
 
 3. **Implementar os Casos de Uso**
 ```typescript
-// application/usecases/create-produto.usecase.ts
-export namespace CreateProdutoUseCase {
+// application/usecases/create-product.usecase.ts
+export namespace CreateProductUseCase {
   export class UseCase {
     // Implementar lógica do caso de uso
   }
@@ -448,31 +448,31 @@ export namespace CreateProdutoUseCase {
 
 4. **Criar o Controlador**
 ```typescript
-// infrastructure/produto.controller.ts
-@Controller('produtos')
-export class ProdutoController {
+// infrastructure/product.controller.ts
+@Controller('products')
+export class ProductController {
   // Implementar endpoints
 }
 ```
 
 5. **Implementar o Repositório**
 ```typescript
-// infrastructure/database/prisma/produto-prisma.repository.ts
-export class ProdutoPrismaRepository implements ProdutoRepository.Repository {
+// infrastructure/database/prisma/product-prisma.repository.ts
+export class ProductPrismaRepository implements ProductRepository.Repository {
   // Implementar persistência
 }
 ```
 
 6. **Configurar o Módulo**
 ```typescript
-// infrastructure/produto.module.ts
+// infrastructure/product.module.ts
 @Module({
   providers: [
     // Configurar providers
   ],
-  controllers: [ProdutoController]
+  controllers: [ProductController]
 })
-export class ProdutoModule {}
+export class ProductModule {}
 ```
 
 ## 🌐 API Endpoints
@@ -591,7 +591,7 @@ Este projeto está sob a licença UNLICENSED - veja o arquivo [LICENSE](LICENSE)
 
 ## 👥 Autores
 
-- **Seu Nome** - *Desenvolvimento inicial* - [SeuPerfil](https://github.com/seuperfil)
+- **Érick Nilson** - *Desenvolvimento inicial* - [SeuPerfil](https://github.com/ericknilson)
 
 ## 🙏 Agradecimentos
 
