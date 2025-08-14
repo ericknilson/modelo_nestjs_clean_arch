@@ -591,7 +591,7 @@ Este projeto está sob a licença UNLICENSED - veja o arquivo [LICENSE](LICENSE)
 
 ## 👥 Autores
 
-- Este projeto foi inicialmente criado pelo Aluisio Developer (https://github.com/aluiziodeveloper/nestjs-clean-arch.git) e alterado/adaptado por **Érick Nilson** - *Desenvolvimento inicial* - [GitHub](https://github.com/ericknilson)
+- Este projeto foi inicialmente criado pelo Aluizio Developer (https://github.com/aluiziodeveloper/nestjs-clean-arch.git) e alterado/adaptado por **Érick Nilson** - *Desenvolvimento inicial* - [GitHub](https://github.com/ericknilson)
 
 ## 🙏 Agradecimentos
 
