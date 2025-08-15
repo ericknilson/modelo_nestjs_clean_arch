@@ -9,6 +9,8 @@ export class UserModelMapper {
       email: model.email,
       password: model.password,
       createdAt: model.createdAt,
+      updatedAt: model.updatedAt,
+      deletedAt: model.deletedAt,
     }
 
     try {

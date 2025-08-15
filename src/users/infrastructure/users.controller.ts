@@ -19,6 +19,8 @@ import { SigninUseCase } from '../application/usecases/signin.usecase'
 import { UpdateUserUseCase } from '../application/usecases/update-user.usecase'
 import { UpdatePasswordUseCase } from '../application/usecases/update-password.usecase'
 import { DeleteUserUseCase } from '../application/usecases/delete-user.usecase'
+import { SoftDeleteUserUseCase } from '../application/usecases/soft-delete-user.usecase'
+import { RestoreUserUseCase } from '../application/usecases/restore-user.usecase'
 import { GetUserUseCase } from '../application/usecases/getuser.usecase'
 import { ListUsersUseCase } from '../application/usecases/listusers.usecase'
 import { SigninDto } from './dtos/signin.dto'
@@ -55,6 +57,12 @@ export class UsersController {
 
   @Inject(DeleteUserUseCase.UseCase)
   private deleteUserUseCase: DeleteUserUseCase.UseCase
+
+  @Inject(SoftDeleteUserUseCase.UseCase)
+  private softDeleteUserUseCase: SoftDeleteUserUseCase.UseCase
+
+  @Inject(RestoreUserUseCase.UseCase)
+  private restoreUserUseCase: RestoreUserUseCase.UseCase
 
   @Inject(GetUserUseCase.UseCase)
   private getUserUseCase: GetUserUseCase.UseCase
@@ -230,7 +238,47 @@ export class UsersController {
   @ApiBearerAuth()
   @ApiResponse({
     status: 204,
-    description: 'Resposta de confirmação da exclusão',
+    description: 'Usuário deletado com sucesso (soft delete)',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Acesso não autorizado',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado',
+  })
+  @UseGuards(AuthGuard)
+  @HttpCode(204)
+  @Patch(':id/soft-delete')
+  async softDelete(@Param('id') id: string) {
+    await this.softDeleteUserUseCase.execute({ id })
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: 204,
+    description: 'Usuário restaurado com sucesso',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Acesso não autorizado',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado',
+  })
+  @UseGuards(AuthGuard)
+  @HttpCode(204)
+  @Patch(':id/restore')
+  async restore(@Param('id') id: string) {
+    await this.restoreUserUseCase.execute({ id })
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: 204,
+    description: 'Resposta de confirmação da exclusão (hard delete)',
   })
   @ApiResponse({
     status: 404,

@@ -59,6 +59,35 @@ describe('UserInMemoryRepository unit tests', () => {
     expect(itemsFiltered).toStrictEqual([items[0], items[1]])
   })
 
+  it('Should filter name field ignoring accents', async () => {
+    const items = [
+      new UserEntity(UserDataBuilder({ name: 'Érick Nilson' })),
+      new UserEntity(UserDataBuilder({ name: 'José Silva' })),
+      new UserEntity(UserDataBuilder({ name: 'André Costa' })),
+      new UserEntity(UserDataBuilder({ name: 'Normal Name' })),
+    ]
+
+    // Buscar por "erick" deve encontrar "Érick Nilson"
+    let itemsFiltered = await sut['applyFilter'](items, 'erick')
+    expect(itemsFiltered).toStrictEqual([items[0]])
+
+    // Buscar por "jose" deve encontrar "José Silva"
+    itemsFiltered = await sut['applyFilter'](items, 'jose')
+    expect(itemsFiltered).toStrictEqual([items[1]])
+
+    // Buscar por "andre" deve encontrar "André Costa"
+    itemsFiltered = await sut['applyFilter'](items, 'andre')
+    expect(itemsFiltered).toStrictEqual([items[2]])
+
+    // Buscar por "normal" deve encontrar "Normal Name"
+    itemsFiltered = await sut['applyFilter'](items, 'normal')
+    expect(itemsFiltered).toStrictEqual([items[3]])
+
+    // Buscar por "nilson" deve encontrar "Érick Nilson"
+    itemsFiltered = await sut['applyFilter'](items, 'nilson')
+    expect(itemsFiltered).toStrictEqual([items[0]])
+  })
+
   it('Should sort by createAt when sort param is null', async () => {
     const createdAt = new Date()
     const items = [

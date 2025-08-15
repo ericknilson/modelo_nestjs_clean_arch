@@ -25,7 +25,7 @@ describe('UpdatePasswordUseCase unit tests', () => {
         password: 'test password',
         oldPassword: 'old password',
       }),
-    ).rejects.toThrow(new NotFoundError('Entity not found'))
+    ).rejects.toThrow(new NotFoundError('Entity not found using id fakeId'))
   })
 
   it('Should throws error when old password not provided', async () => {

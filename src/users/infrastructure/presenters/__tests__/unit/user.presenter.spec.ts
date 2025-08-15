@@ -1,16 +1,19 @@
 import { instanceToPlain } from 'class-transformer'
 import { UserCollectionPresenter, UserPresenter } from '../../user.presenter'
 import { PaginationPresenter } from '@/shared/infrastructure/presenters/pagination.presenter'
+import { UserOutputDataBuilder } from '@/users/domain/testing/helpers/user-output-data-builder'
 
 describe('UserPresenter unit tests', () => {
   const createdAt = new Date()
-  const props = {
+  const updatedAt = new Date()
+  const props = UserOutputDataBuilder({
     id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
     name: 'test name',
     email: 'a@a.com',
     password: 'fake',
     createdAt,
-  }
+    updatedAt,
+  })
   let sut: UserPresenter
 
   beforeEach(() => {
@@ -39,13 +42,15 @@ describe('UserPresenter unit tests', () => {
 
 describe('UserCollectionPresenter unit tests', () => {
   const createdAt = new Date()
-  const props = {
+  const updatedAt = new Date()
+  const props = UserOutputDataBuilder({
     id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
     name: 'test name',
     email: 'a@a.com',
     password: 'fake',
     createdAt,
-  }
+    updatedAt,
+  })
 
   describe('constructor', () => {
     it('should set values', () => {

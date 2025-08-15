@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { UserProps } from '../../entities/user.entity'
+import { UserOutput } from '@/users/application/dtos/user-output'
 
 type Props = {
+  id?: string
   name?: string
   email?: string
   password?: string
@@ -10,13 +11,14 @@ type Props = {
   deletedAt?: Date
 }
 
-export function UserDataBuilder(props: Props): UserProps {
+export function UserOutputDataBuilder(props: Props = {}): UserOutput {
   return {
+    id: props.id ?? faker.string.uuid(),
     name: props.name ?? faker.person.fullName(),
     email: props.email ?? faker.internet.email(),
     password: props.password ?? faker.internet.password(),
     createdAt: props.createdAt ?? new Date(),
     updatedAt: props.updatedAt ?? new Date(),
-    deletedAt: props.deletedAt ?? null,
+    deletedAt: props.deletedAt,
   }
 }

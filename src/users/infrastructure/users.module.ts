@@ -11,6 +11,8 @@ import { ListUsersUseCase } from '../application/usecases/listusers.usecase'
 import { UpdateUserUseCase } from '../application/usecases/update-user.usecase'
 import { UpdatePasswordUseCase } from '../application/usecases/update-password.usecase'
 import { DeleteUserUseCase } from '../application/usecases/delete-user.usecase'
+import { SoftDeleteUserUseCase } from '../application/usecases/soft-delete-user.usecase'
+import { RestoreUserUseCase } from '../application/usecases/restore-user.usecase'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { UserPrismaRepository } from './database/prisma/repositories/user-prisma.repository'
 import { AuthModule } from '@/auth/infrastructure/auth.module'
@@ -89,6 +91,20 @@ import { AuthModule } from '@/auth/infrastructure/auth.module'
       provide: DeleteUserUseCase.UseCase,
       useFactory: (userRepository: UserRepository.Repository) => {
         return new DeleteUserUseCase.UseCase(userRepository)
+      },
+      inject: ['UserRepository'],
+    },
+    {
+      provide: SoftDeleteUserUseCase.UseCase,
+      useFactory: (userRepository: UserRepository.Repository) => {
+        return new SoftDeleteUserUseCase.UseCase(userRepository)
+      },
+      inject: ['UserRepository'],
+    },
+    {
+      provide: RestoreUserUseCase.UseCase,
+      useFactory: (userRepository: UserRepository.Repository) => {
+        return new RestoreUserUseCase.UseCase(userRepository)
       },
       inject: ['UserRepository'],
     },

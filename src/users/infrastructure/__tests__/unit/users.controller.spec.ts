@@ -14,6 +14,7 @@ import {
   UserCollectionPresenter,
   UserPresenter,
 } from '../../presenters/user.presenter'
+import { UserOutputDataBuilder } from '@/users/domain/testing/helpers/user-output-data-builder'
 
 describe('UsersController unit tests', () => {
   let sut: UsersController
@@ -23,13 +24,14 @@ describe('UsersController unit tests', () => {
   beforeEach(async () => {
     sut = new UsersController()
     id = 'df96ae94-6128-486e-840c-b6f78abb4801'
-    props = {
+    props = UserOutputDataBuilder({
       id,
       name: 'Jhon Doe',
       email: 'a@a.com',
       password: '1234',
       createdAt: new Date(),
-    }
+      updatedAt: new Date(),
+    })
   })
 
   it('should be defined', () => {

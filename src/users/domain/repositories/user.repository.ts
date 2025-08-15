@@ -21,5 +21,9 @@ export namespace UserRepository {
     > {
     findByEmail(email: string): Promise<UserEntity>
     emailExists(email: string): Promise<void>
+    softDelete(id: string): Promise<void>
+    restore(id: string): Promise<void>
+    findAllIncludingDeleted(): Promise<UserEntity[]>
+    findByIdIncludingDeleted(id: string): Promise<UserEntity>
   }
 }

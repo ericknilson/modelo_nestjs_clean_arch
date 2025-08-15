@@ -2,14 +2,15 @@ version: '3.1'
 
 services:
   db:
-    build: .
+    image: mysql:8.0
     container_name: api-db
     restart: always
-    tty: true
     ports:
-      - '5432:5432'
+      - '3306:3306'
     volumes:
-      - .docker/dbdata:/var/lib/postgresql/data
+      - .docker/dbdata:/var/lib/mysql
     environment:
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=projectdb
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=nest_clean
+      - MYSQL_USER=nestuser
+      - MYSQL_PASSWORD=nestpass

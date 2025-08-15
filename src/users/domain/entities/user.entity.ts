@@ -7,6 +7,8 @@ export type UserProps = {
   email: string
   password: string
   createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date
 }
 
 export class UserEntity extends Entity<UserProps> {
@@ -14,6 +16,7 @@ export class UserEntity extends Entity<UserProps> {
     UserEntity.validate(props)
     super(props, id)
     this.props.createdAt = this.props.createdAt ?? new Date()
+    this.props.updatedAt = this.props.updatedAt ?? new Date()
   }
 
   update(value: string): void {
@@ -22,6 +25,7 @@ export class UserEntity extends Entity<UserProps> {
       name: value,
     })
     this.name = value
+    this.touch()
   }
 
   updatePassword(value: string): void {
@@ -30,6 +34,25 @@ export class UserEntity extends Entity<UserProps> {
       password: value,
     })
     this.password = value
+    this.touch()
+  }
+
+  softDelete(): void {
+    this.props.deletedAt = new Date()
+    this.touch()
+  }
+
+  restore(): void {
+    this.props.deletedAt = null
+    this.touch()
+  }
+
+  isDeleted(): boolean {
+    return this.props.deletedAt !== null && this.props.deletedAt !== undefined
+  }
+
+  private touch(): void {
+    this.props.updatedAt = new Date()
   }
 
   get name() {
@@ -54,6 +77,14 @@ export class UserEntity extends Entity<UserProps> {
 
   get createdAt() {
     return this.props.createdAt
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt
+  }
+
+  get deletedAt() {
+    return this.props.deletedAt
   }
 
   static validate(props: UserProps) {

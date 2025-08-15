@@ -6,16 +6,18 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String   @id @db.Uuid
-  name      String   @db.VarChar(255)
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(100)
-  createdAt DateTime @default(now())
+  id        String    @id @default(uuid())
+  name      String    @db.VarChar(255)
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(100)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   @@map("users")
 }
